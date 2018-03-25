@@ -12,7 +12,7 @@ export class UsernameValidators {
         return new Promise((resolve, reject) => {
             setTimeout( () => {
                 if ( control.value === 'mosh' ) {
-                    console.log('shouldBeUnique is true');
+                    console.log('shouldBeUnique should be true');
                     resolve( { shouldBeUnique: true } );
                 } else {
                     resolve( null );
