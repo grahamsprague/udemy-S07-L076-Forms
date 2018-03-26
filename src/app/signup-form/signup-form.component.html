@@ -1,35 +1,34 @@
-<form [formGroup]="form">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input
-            formControlName="username"
-            id="username" 
-            type="text" 
-            class="form-control">
+<form [formGroup]="form" (ngSubmit)="login()">
+    <div *ngIf="form.errors" class="alert alert-danger">
+        <div *ngIf="form.errors">Invalid login. Username and/or password incorrect.</div>
+    </div>
+    <div formGroupName="account">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input formControlName="username" id="username" type="text" class="form-control">
+            <div *ngIf="username.pending">Validating...</div>
             <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
                 <div *ngIf="username.errors.required">Username is required.</div>
                 <div *ngIf="username.errors.minlength">Username must be at least {{ username.errors.minlength.requiredLength }} chars.</div>
                 <div *ngIf="username.errors.cannotContainSpace">Username cannot contain spaces.</div>
                 <div *ngIf="username.errors.shouldBeUnique">Username is already taken.</div>
             </div>
-            
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input 
-            formControlName="password"
-            id="password" 
-            type="text" 
-            class="form-control">
-        <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
-            <div *ngIf="password.errors.required">Password is required.</div>
-            <div *ngIf="password.errors.minlength">Password must be at least {{ password.errors.minlength.requiredLength }} chars.</div>
-            <div *ngIf="password.errors.cannotContainSpace">Password cannot contain spaces.</div>
 
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input formControlName="password" id="password" type="text" class="form-control">
+            <div *ngIf="password.pending">Validating...</div>
+            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">
+                <div *ngIf="password.errors.required">Password is required.</div>
+                <div *ngIf="password.errors.minlength">Password must be at least {{ password.errors.minlength.requiredLength }} chars.</div>
+                <div *ngIf="password.errors.cannotContainSpace">Password cannot contain spaces.</div>
+
+            </div>
         </div>
     </div>
     <button class="btn btn-primary" type="submit">Sign Up</button>
 </form>
-
+<p>Form errors: {{ form.errors | json }}</p>
 <p>Username errors: {{ form.get('username').errors | json }}</p>
 <p>Password errors: {{ form.get('password').errors | json }}</p>

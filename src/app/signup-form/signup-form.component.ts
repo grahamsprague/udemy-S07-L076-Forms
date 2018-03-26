@@ -10,25 +10,40 @@ import { UsernameValidators } from './username.validators';
 export class SignupFormComponent {
   // validators and ansyncvalidators must be in sep variables or arrays
   form = new FormGroup({
-    username : new FormControl('', [
-      Validators.required,
-      Validators.minLength(3),
-      UsernameValidators.cannotContainSpace],
-      UsernameValidators.shouldBeUnique
-    ),
-    password : new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-      UsernameValidators.cannotContainSpace
-    ])
+    account: new FormGroup ({
+      username : new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        UsernameValidators.cannotContainSpace],
+        UsernameValidators.shouldBeUnique
+      ),
+      password : new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        UsernameValidators.cannotContainSpace
+      ])
+
+    })
+
 });
 
+login() {
+ // let isValid = authService.login(this.form.value);
+  // if (!isValid) {
+    console.log('login is running');
+    this.form.setErrors({
+      invalidLogin: true
+    });
+  // }
+
+}
+
 get username() {
-  return this.form.get('username');
+  return this.form.get('account.username');
 }
 
 get password() {
-  return this.form.get('password');
+  return this.form.get('account.password');
 }
 
 }
